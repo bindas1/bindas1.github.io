@@ -46,30 +46,46 @@
 						<!-- Intro -->
 							<article id="intro">
 								<h2 class="major">Intro</h2>
-								<span class="image main"><img src="images/startfigure.jpg" alt="" /></span> 
-								<p>Suppose that you are looking for an apartment in the trendy and dreamy New York City, what will you do in order to find the perfect house for you? Probably most of you will carry out some research on Google, since nowadays internet sources represent one of the main ways for obtaining any kind of information we need.</p>
-								<p>Now, think about which words will you most likely type in the search bar and make a bet of the ones that could be mostly tapped out by people. We will reveal them to you later!</p>
-								
+								<p>Suppose you are looking for an apartment in trendy and dreamy New York City. What will you do to find the perfect house for you?<br>
+								Probably, you will carry out some research on Google, since nowadays Internet sources represent one of the main ways for obtaining any kind of information we need.<br>
+								Now, think about which keywords you will most likely type in the search bar and make a bet of the ones that could be mostly tapped out by people. We will reveal them to you later!</p>
 								<span class="image main"><img src="images/mortgage.jpg" alt="" /></span> 
-								<div class="flourish-embed flourish-chart" data-src="visualisation/4614082"><script src="https://public.flourish.studio/resources/embed.js"></script></div>
-								<p>Aenean ornare velit lacus, ac varius enim ullamcorper eu. Proin aliquam facilisis ante interdum congue. Integer mollis, nisl amet convallis, porttitor magna ullamcorper, amet egestas mauris. Ut magna finibus nisi nec lacinia. Nam maximus erat id euismod egestas. By the way, check out my <a href="#work">awesome work</a>.</p>
-								<p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Duis dapibus rutrum facilisis. Class aptent taciti sociosqu ad litora torquent per conubia nostra, per inceptos himenaeos. Etiam tristique libero eu nibh porttitor fermentum. Nullam venenatis erat id vehicula viverra. Nunc ultrices eros ut ultricies condimentum. Mauris risus lacus, blandit sit amet venenatis non, bibendum vitae dolor. Nunc lorem mauris, fringilla in aliquam at, euismod in lectus. Pellentesque habitant morbi tristique senectus et netus et malesuada fames ac turpis egestas. In non lorem sit amet elit placerat maximus. Pellentesque aliquam maximus risus, vel sed vehicula.</p>
+								<h3 class="major">What is our goal?</h3>
+								<p>In that context, our project will be mainly focused on Google Trends: a real-time index of the volume of queries that users enter into Google. <br>
+								More precisely we aim to demonstrate whether Google Trends could represent (or not) a reliable means for improving the predictions in the economic sector of property sales. 
+								</p>
+								<h3 class="major">How will we achieve that?</h3>
+								<p>We will fulfill the main steps below: 
+								<ol>
+								  <li><b>Exploring</b>b a dataset about New York property sales from one year, checking for significant patterns and features (e.g: Is there a diversification between the five boroughs in terms of the number of sales or gross square feet?)</li>
+								  <li><b>Preprocessing</b> and eventually <b>seasonally adjusting</b> the data and, afterward, performing an autoregressive model to predict sales).</li>
+								  <li>Performing the <b>autoregressive model</b> again with additional several combinations of <b>Google Trends</b> keywords, until we’ll finally identify the best overall improvement of the near-term prediction.</li>
+								</ol>																	
+								Would Google Trends improve the prediction? <br>
+								<a href="#data">Let’s find the answer!</a></p>
 							</article>
 
 						<!-- Data -->
 							<article id="data">
 								<h2 class="major">Data</h2>
-								<h3 class="major">Seasonal adjustment - preparing dataset for AR model</h3>
-								<p>After preprocessing data (removing useless features, removing duplicates etc.) we obtain our required feature - the number of houses sold in New York City for each day in the data frame. At this point,  the raw data with the counts bought had to be also adjusted. First of all, during the weekends there were almost no transactions present and hence so many ups and downs on the plot below. This is most likely due to the fact that notaries usually don’t work during the weekend, so the formal signing of new ownership happens during the weekdays.
-								<br>This is how the non-seasonally adjusted data looks like.</p>
-								<span class="image main"><img src="images/nonseasonal-3.png" alt="" /></span> 
-								<p>Our initial idea to remove the noise was to simply group the dates in weeks and aggregate the count of total properties sold. However, we weren’t satisfied with the results and as presented below we could still get a better overall trend from the data.</p>
-								<span class="image main"><img src="images/seasonal_grouped.png" alt="" /></span> 
-								<p>Just like in the Google Trends research paper we opted to use STL for better seasonal adjustments. We wanted the data formatted to weeks starting by Sunday so we use the plot above and extract only the trends to our final data frame that will be used for further analysis (second plot from top).</p>
-								<span class="image main"><img src="images/STL.png" alt="" /></span> 
-								<p>Just like in the Google Trends research paper we opted to use STL for better seasonal adjustments. We wanted the data formatted to weeks starting by Sunday so we use the plot above and extract only the trends to our final data frame that will be used for further analysis (second plot from top).</p>
-								<span class="image main"><img src="images/seasonal_adjusted.png" alt="" /></span> 
-								<p>This is our visualized dataset for an Autoregressive model.</p>
+								<p>Before answering the question whether Google Trends improves the prediction, let’s explore the dataset first!
+								<br>
+									Which New York City’s district do you think has the highest number of property sales? </p>
+								<span class="image main"><img src="images/nymap.jpg" alt="" /></span>
+								<p>
+								Having visualized the distribution of the real estate sales through the 5 different districts (Queens, Brooklyn, Manhattan, Staten Island, and the Bronx), we noticed a predominance of sales in Brooklyn and Queens with a similar percentage (respectively 28.5% and 31.7%), in contrary to the Bronx and Staten Island which registered only 8.35 and 9.9%.
+								</p>
+								<span class="image main"><img src="images/districts.png" alt="" /></span>
+								<p>This is a general point of view, let’s now examine sales trend, for every borough, during the period from 2016-09-11 to 2017-09-03: </p>
+								<div class="flourish-embed flourish-chart" data-src="visualisation/4614082"><script src="https://public.flourish.studio/resources/embed.js"></script></div>
+								<p>It is visible that Brooklyn and Queens are in the higher positions, but additionally, now it is also easy to detect their patterns which are quite similar for the entire period, and to record lower values in 2017-08. Regarding the Bronx and Staten Island, the values are also quite similar. It is worth to notice that after 2017-07 Staten Island, which was always on top of the Bronx, fails. </p>
+								<h3>What about the gross square feet? </h3>
+								<p>We found out that the apartments with higher gross square feet are principally sold in Manhattan, not in Staten Island and Queens where the most vended houses have low gross square feet. </p>
+								<span class="image main"><img src="images/gross_sqaure_feet.png" alt="" /></span>
+								<p>Manhattan seems to win in this case. It is indeed famous for being the most trendy, expensive area. It is characterized by the presence of imposing and luxurious skyscrapers. Can it stem from the assumption that Manhattan is an accessible place to live only for affluent and very rich people (percentage of poverty in Manhattan is only 6.07%), who also can buy a bigger house? Let’s check how prices change between boroughs! </p>
+								<span class="image main"><img src="images/prices.png" alt="" /></span>
+								<p>Well, seems to be exactly what we supposed. Bigger houses implicated higher prices and these one seems to be mostly buyed in Manhattan, the costly city!<br>
+									Now let's move to the real analysis part - <a href="#prediction">designing AR model with Google Trends!</a></p>
 							</article>
 
 						<!-- About -->
@@ -82,7 +98,18 @@
 						<!-- Prediction -->
 							<article id="prediction">
 								<h2 class="major">Prediction</h2>
-								<span class="image main"><img src="images/pic03.jpg" alt="" /></span>
+
+								<h3 class="major">Seasonal adjustment - preparing dataset for AR model</h3>
+								<p>After preprocessing data (removing useless features, removing duplicates etc.) we obtain our required feature - the number of houses sold in New York City for each day in the data frame. At this point,  the raw data with the counts bought had to be also adjusted. First of all, during the weekends there were almost no transactions present and hence so many ups and downs on the plot below. This is most likely due to the fact that notaries usually don’t work during the weekend, so the formal signing of new ownership happens during the weekdays.
+								<br>This is how the non-seasonally adjusted data looks like.</p>
+								<span class="image main"><img src="images/nonseasonal-3.png" alt="" /></span> 
+								<p>Our initial idea to remove the noise was to simply group the dates in weeks and aggregate the count of total properties sold. However, we weren’t satisfied with the results and as presented below we could still get a better overall trend from the data.</p>
+								<span class="image main"><img src="images/seasonal_grouped.png" alt="" /></span> 
+								<p>Just like in the Google Trends research paper we opted to use STL for better seasonal adjustments. We wanted the data formatted to weeks starting by Sunday so we use the plot above and extract only the trends to our final data frame that will be used for further analysis (second plot from top).</p>
+								<span class="image main"><img src="images/STL.png" alt="" /></span> 
+								<p>This is our visualized dataset for an Autoregressive model.</p>
+								<span class="image main"><img src="images/seasonal_adjusted.png" alt="" /></span> 
+
 								<ul class="icons">
 									<li><a href="#" class="icon brands fa-twitter"><span class="label">Twitter</span></a></li>
 									<li><a href="#" class="icon brands fa-facebook-f"><span class="label">Facebook</span></a></li>
