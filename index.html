@@ -46,7 +46,12 @@
 						<!-- Intro -->
 							<article id="intro">
 								<h2 class="major">Intro</h2>
-								<p align="justify">Suppose you are looking for an apartment in trendy and dreamy New York City. What will you do to find the perfect house for you?<br>
+								<p align="justify">
+									In the paper “Predicting the Present with Google Trends” there are explored different datasets by analyzing how Google Trends data could influence economic predictions such as initial claims for unemployment, automobile demand and vacation destinations. We propose to examine a different dataset related to the NYC sales property and check how Google Trends data impact the prediction.<br>
+									To do so, we will find out several Google Trends queries and analyze which are better to improve the model. So, we will execute the autoregressive model, setting out different possibile lags and observe if using Google Trends has a positive effect on the forecasting. Indeed, we will compute the MAE, examining if it will be meliorate or not. <br>
+									So now, sit down for a while, relax and start dreaming… <br>
+
+									Suppose you are looking for an apartment in trendy and dreamy New York City. What will you do to find the perfect house for you?<br>
 								Probably, you will carry out some research on Google, since nowadays Internet sources represent one of the main ways for obtaining any kind of information we need.<br>
 								Now, think about which keywords you will most likely type in the search bar and make a bet of the ones that could be mostly tapped out by people. We will reveal them to you later!</p>
 								<span class="image main"><img src="images/mortgage.jpg" alt="" /></span> 
@@ -57,8 +62,8 @@
 								<h3 class="major">How will we achieve that?</h3>
 								<p align="justify">We will fulfill the main steps below: 
 								<ol>
-								  <li><b>Exploring</b>b a dataset about New York property sales from one year, checking for significant patterns and features (e.g: Is there a diversification between the five boroughs in terms of the number of sales or gross square feet?)</li>
-								  <li><b>Preprocessing</b> and eventually <b>seasonally adjusting</b> the data and, afterward, performing an autoregressive model to predict sales).</li>
+								  <li><b>Exploring</b> a dataset about New York property sales from one year, checking for significant patterns and features (e.g: Is there a diversification between the five boroughs in terms of the number of sales or gross square feet?)</li>
+								  <li><b>Preprocessing</b> and eventually <b>seasonally adjusting</b> the data and, afterward, performing an autoregressive model to predict sales.</li>
 								  <li>Performing the <b>autoregressive model</b> again with additional several combinations of <b>Google Trends</b> keywords, until we’ll finally identify the best overall improvement of the near-term prediction.</li>
 								</ol>																	
 								Would Google Trends improve the prediction? <br>
@@ -73,7 +78,7 @@
 									Which New York City’s district do you think has the highest number of property sales? </p>
 								<span class="image main"><img src="images/nymap.jpg" alt="" /></span>
 								<p align="justify">
-								Having visualized the distribution of the real estate sales through the 5 different districts (Queens, Brooklyn, Manhattan, Staten Island, and the Bronx), we noticed a predominance of sales in Brooklyn and Queens with a similar percentage (respectively 28.5% and 31.7%), in contrary to the Bronx and Staten Island which registered only 8.35 and 9.9%.
+								Having visualized the distribution of the real estate sales through the 5 different districts (Queens, Brooklyn, Manhattan, Staten Island, and the Bronx), we noticed a predominance of sales in Brooklyn and Queens with a similar percentage (respectively 28.5% and 31.7%), in contrary to the Bronx and Staten Island which registered only 8.35% and 9.9%.
 								</p>
 								<span class="image main"><img src="images/districts.png" alt="" /></span>
 								<p align="justify">This is a general point of view, let’s now examine sales trend, for every borough, during the period from 2016-09-11 to 2017-09-03: </p>
@@ -91,8 +96,12 @@
 						<!-- About -->
 							<article id="about">
 								<h2 class="major">About us</h2>
-								<span class="image main"><img src="images/pic03.jpg" alt="" /></span>
-								<p align="justify">Lorem ipsum dolor sit amet, consectetur et adipiscing elit. Praesent eleifend dignissim arcu, at eleifend sapien imperdiet ac. Aliquam erat volutpat. Praesent urna nisi, fringila lorem et vehicula lacinia quam. Integer sollicitudin mauris nec lorem luctus ultrices. Aliquam libero et malesuada fames ac ante ipsum primis in faucibus. Cras viverra ligula sit amet ex mollis mattis lorem ipsum dolor sit amet.</p>
+								<p><b>Aleksandra Kukawka</b><br> <q>Computer Science / Warsaw University of Technology</q></p>
+								<span class="image main"><img src="images/ola.jpg" alt="" /></span>
+								<p><b>Mihaela Diana Zanoaga</b><br>Life Science Engineering / EPFL</p>
+								<span class="image main"><img src="images/diana.png" alt="" /></span>
+								<p><b>Bartlomiej Binda</b><br>Computer Science / Warsaw University of Technology</p>
+								<span class="image main"><img src="images/bart.jpg" alt="" /></span>
 							</article>
 
 						<!-- Prediction -->
@@ -114,28 +123,27 @@
 
 								<h3 class="major">AR model with and without Google Trends</h3>
 								<p align="justify">To predict the real estate sales, we compute an autoregressive model.
-								The first question we posed ourselves was which lags should we use. To solve that we used the function ar_select_order from statsmodels library which allows us to find the optimal lag structure. <br>
+								The first question we posed ourselves was which lags should we use. To solve that we used the function <code>ar_select_order</code> from <code>statsmodels</code> library which allows us to find the optimal lag structure. <br>
 								Firstly, we realized the Autoregressive model only with base bata and we considered as lags the first five ones. That is the prediction we obtained: </p>
 								<span class="image main"><img src="images/prediction_base.png" alt="" /></span> 
 								<p align="justify">Following we created again the Autoregressive model, but now adding different sets of Google Trends queries. 
 									<br>
-								To explore the data from Google Trends, we used Google Trends Anchor Bank created by EPFL Data Science Lab. This made our work with Trends data much easier since we didn’t have to download a .csv file for every query and it saved our time. <br>
+								To explore the data from Google Trends, we used <a href="https://github.com/epfl-dlab/GoogleTrendsAnchorBank">Google Trends Anchor</a> Bank created by EPFL Data Science Lab. This made our work with Trends data much easier since we didn’t have to download a .csv file for every query and it saved our time. <br>
 								As we mentioned, we aimed to demonstrate whether Google Trends could represent a reliable mean for improving the predictions, so we tried to find such queries that the prediction including Trends data is better than without. How did we check that? To keep it simple - for every set of queries, we checked the overall improvement (that sometimes wasn’t even here). This is our story of finding the best queries.
 							</p>
 								<h4 class="major">The first attempt:</h4>
-								<p align="justify">Our first set of queries arose from brainstorming within the team. We just found a couple of keywords that we found the best: property and real estate. We chose matching lags and tried to compute the prediction’s improvement. And yet - there was, but only 5.8%. We thought that maybe we should use more queries to see the satisfactory value? So, here comes…</p>
+								<p align="justify">Our first set of queries arose from brainstorming within the team. We just found a couple of keywords that we found the best: <b>property and real estate.</b> We chose matching lags and tried to compute the prediction’s improvement. And yet - there was, but only 5.8%. We thought that maybe we should use more queries to see the satisfactory value? So, here comes…</p>
 								<h4 class="major">The second attempt:</h4>
-								<p align="justify">This time we decided to use the same queries as before, but we added to them the two fresh ones. Our set of queries looked like this: property, real estate, mortgage, and houses for sale. We changed the queries in our prediction and now the improvement occurred! We were really happy and we thought that we got this because it was 10.5%. However, we decided to try again to see if we are able to obtain better results.</p>
+								<p align="justify">This time we decided to use the same queries as before, but we added to them the two fresh ones. Our set of queries looked like this: <b>property, real estate, mortgage, and houses for sale.</b> We changed the queries in our prediction and now the improvement occurred! We were really happy and we thought that we got this because it was 10.5%. However, we decided to try again to see if we are able to obtain better results.</p>
 								<h4 class="major">The third attempt:</h4>
-								<p align="justify">This time we changed our strategy - if we wanted to buy a property in New York, where would we search? The answer is obvious - on the websites dedicated to selling properties. Thus, we searched for such websites and chose one of the most common ones: MLS.com. Then our set of queries was: property, real estate, mortgage, houses for sale, and MLS. But the improvement decreased by ~0.1%. So we tried again. </p>
+								<p align="justify">This time we changed our strategy - if we wanted to buy a property in New York, where would we search? The answer is obvious - on the websites dedicated to selling properties. Thus, we searched for such websites and chose one of the most common ones: MLS.com. Then our set of queries was: <b>property, real estate, mortgage, houses for sale, and MLS.</b> But the improvement decreased by ~0.1%. So we tried again. </p>
 								<h4 class="major">The fourth attempt:</h4>
-								<p align="justify">Again - we changed our strategy. But this time we decided to find the information that people search for in Google when they want to buy a house? We typed into Google this exact phrase and we found <a href="https://www.wordstream.com/popular-keywords/real-estate-keywords">this</a> interesting webpage with popular real estate keywords. By an experiment, we found the best set so far which consisted of property, realtor, houses for sale, homes for sale, and MLS. The improvement was the largest that we have ever obtained - 14.1%!</p>
+								<p align="justify">Again - we changed our strategy. But this time we decided to find the information that people search for in Google when they want to buy a house? We typed into Google this exact phrase and we found <a href="https://www.wordstream.com/popular-keywords/real-estate-keywords">this</a> interesting webpage with popular real estate keywords. By an experiment, we found the best set so far which consisted of <b>property, realtor, houses for sale, homes for sale, and MLS.</b> The improvement was the largest that we have ever obtained - 14.1%!</p>
 								<h4 class="major">The final attempt:</h4>
-								<p align="justify">After some little experimentations, we noticed that the ‘mortgage’ benefits our prediction. Thus, we decided to add it at the end. Therefore, our current set of queries is: property, realtor, houses for sale, mortgage, homes for sale, and MLS. After choosing the best possible lags, the overall improvement of the prediction is 14.2%. </p>
+								<p align="justify">After some little experimentations, we noticed that the ‘mortgage’ benefits our prediction. Thus, we decided to add it at the end. Therefore, our current set of queries is: <b>property, realtor, houses for sale, mortgage, homes for sale, and MLS.</b> After choosing the best possible lags, the overall improvement of the prediction is 14.2%. </p>
 								<p align="justify">To compute the overall improvement, we computed mean absolute errors for both prediction for base and prediction for Trends. With these values, we could easily obtain the improvement by calculating the difference between them and dividing the difference by mean absolute error for the base. <br>
 								To conclude, this is the comparison of our first and final attempts. Take a look at what we achieved by choosing appropriate queries and lags in the Autoregressive Model!</p>
 								<span class="image main"><img src="images/prediction_first.png" alt="" /></span> 
-								<h5 class="major">The final attempt</h5>
 								<span class="image main"><img src="images/prediction_final.png" alt="" /></span> 
 								<p align="justify"><a href="#summary">Here's the final part of the analysis.</a></p>
 							</article>
@@ -147,13 +155,13 @@
 								<p align="justify">
 									<ul>
 										<li align="justify"> <b>Choosing appropriate Google Trends queries matters a lot!</b><br>
-											We clearly described in the *Work (Google Trends)* section how crucial is to choose the appropriate Google Trends. We could not stop after our first attempt because there was even no improvement in the prediction. As you saw, we keep trying and trying. Finally, after several different attempts, we boosted our improvement from ~0% to ~13%! That is why choosing appropriate Google Trends (and obviously - lags) matters a lot. At first, we thought that our starting set of queries would be the best - how wrong we were! It demanded from us a lot of additional research. We had to ask ourselves questions like: what would we search? Maybe others would search in the other way? What are the keywords in marketing strategies regarding selling properties? In the beginning, we didn’t even think about such questions and they occurred to be the most important part of this stage. <br>
+											We clearly described in the <a href="#prediction">Prediction</a> section how crucial is to choose the appropriate Google Trends. We could not stop after our first attempt because there was even no improvement in the prediction. As you saw, we keep trying and trying. Finally, after several different attempts, we boosted our improvement from ~5% to ~14%! That is why choosing appropriate Google Trends (and obviously - lags) matters a lot. At first, we thought that our starting set of queries would be the best - how wrong we were! It demanded from us a lot of additional research. We had to ask ourselves questions like: what would we search? Maybe others would search in the other way? What are the keywords in marketing strategies regarding selling properties? In the beginning, we didn’t even think about such questions and they occurred to be the most important part of this stage. <br>
 											Only after the whole process of choice, we could state that a seasonal AR model that includes Google Trends queries is better than this without. Since Google Trends data is available for everyone, it can be used by everyone for forecasting near-term values of economic indicators. And be very helpful. 
  										</li>
 										<li align="justify"> <b>When preprocessing data we need to remove seasonalities and look for major trends</b><br> Preprocessing is one of the crucial stages of data analysis. Forgetting about steps like removing duplicates for data or null values can impact our end results and show some inconsistencies. Furthermore, when using Google Trends to strengthen our model we should look for turning points and major trends, because these will usually be also better reflected in the Google Trends data. To find the trends it’s best to remove seasonality and to achieve this we recommend STL from statsmodels or R language.
  </li>
 										<li align="justify"> <b>New York, New York...</b><br>From the unprocessed data about sales in NYC and raw queries extracted from Google Trends, we obtained a really useful model that could help real estate agencies to predict short-term property sales in New York City and prepare marketing strategy before the “boom” on the property market. We explored a really big set of data with different crucial (and less crucial) features. As we saw, even the number of sold properties is terrific! It was not easy to preprocess this whole dataset. That only confirms the single thought with which we would want to conclude our whole work:<br>
-“New York is not a city. It’s a world.”
+<q>“New York is not a city. It’s a world.”</q>
 
  </li>
 									</ul>
