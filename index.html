@@ -31,7 +31,7 @@
 						<nav>
 							<ul>
 								<li><a href="#intro">Intro</a></li>
-								<li><a href="#work">Work</a></li>
+								<li><a href="#project">Project</a></li>
 								<li><a href="#about">About</a></li>
 								<li><a href="#contact">Contact</a></li>
 								<li><a href="#elements">Elements</a></li>
@@ -57,11 +57,15 @@
 							</article>
 
 						<!-- Work -->
-							<article id="work">
-								<h2 class="major">Work</h2>
+							<article id="Project">
+								<h2 class="major">Project</h2>
 								<span class="image main"><img src="images/pic02.jpg" alt="" /></span>
-								<p>Adipiscing magna sed dolor elit. Praesent eleifend dignissim arcu, at eleifend sapien imperdiet ac. Aliquam erat volutpat. Praesent urna nisi, fringila lorem et vehicula lacinia quam. Integer sollicitudin mauris nec lorem luctus ultrices.</p>
-								<p>Nullam et orci eu lorem consequat tincidunt vivamus et sagittis libero. Mauris aliquet magna magna sed nunc rhoncus pharetra. Pellentesque condimentum sem. In efficitur ligula tate urna. Maecenas laoreet massa vel lacinia pellentesque lorem ipsum dolor. Nullam et orci eu lorem consequat tincidunt. Vivamus et sagittis libero. Mauris aliquet magna magna sed nunc rhoncus amet feugiat tempus.</p>
+								<p>After preprocessing data (removing useless features, removing duplicates etc.) we obtain our required feature - the number of houses sold in New York City for each day in the data frame. At this point,  the raw data with the counts bought had to be also adjusted. First of all, during the weekends there were almost no transactions present and hence so many ups and downs on the plot below. This is most likely due to the fact that notaries usually don’t work during the weekend, so the formal signing of new ownership happens during the weekdays.
+								<br>This is how the non-seasonally adjusted data looks like.</p>
+								<span class="image main"><img src="images/nonseasonal-3.png" alt="" /></span> 
+								<p>Our initial idea to remove the noise was to simply group the dates in weeks and aggregate the count of total properties sold. However, we weren’t satisfied with the results and as presented below we could still get a better overall trend from the data.</p>
+								<span class="image main"><img src="images/seasonal_grouped.png" alt="" /></span> 
+								<p>Just like in the Google Trends research paper we opted to use STL for better seasonal adjustments. We wanted the data formatted to weeks starting by Sunday so we use the plot above and extract only the trends to our final data frame that will be used for further analysis (second plot from the top).</p>
 							</article>
 
 						<!-- About -->
